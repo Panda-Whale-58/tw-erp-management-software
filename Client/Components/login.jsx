@@ -57,25 +57,42 @@ function Login (props) {
       )
     .catch(err => console.log('error', err));
   }
-    return (
-      <form onSubmit={clickHandler}>
-        <div className="form-group">
+
+  const signupHandler = () => {
+    navigate('/signup');
+  }
+  return (
+    <div className='login_signup-box'>
+      <form onSubmit={clickHandler} className='form_div'>
+        <h1 className='sub-title'> TW-ERP </h1>
+        {/* <h2 className='sub-title'>Login</h2> */}
+        <div className="login-form">
           <label htmlFor="name"></label>
-          Username:
           <input id="userName"
             type="text"
+            placeholder='Username'
+            className='loginInputs'
             value={username}
             onChange={handleUsernameChange}
           />
-          Password:
+          <br />
           <input id="password"
             type="text"
+            placeholder='Password'
+            className='loginInputs'
             value={password}
             onChange={handlePasswordChange}
           />
-          <button type="submit">Submit</button>
+          <br />
+          <button type="submit" className='login_signup-btn'>Sign in</button>
         </div>
       </form>
-    );
+      <div className='createAccount'>
+        <p className='newToTag'><span>New to TW-ERP?</span></p>
+        <button className='login_signup-btn' onClick={signupHandler}>Join the TW-ERP family</button>
+      </div>
+    </div>
+  );
 }
+
 export default Login;
