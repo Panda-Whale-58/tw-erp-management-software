@@ -116,11 +116,13 @@ $dark-grey: #353535;
 $light-grey: #D9D9D9;
 $white-grey: #FFFFFF;
 
-body {
+.login_signup-background {
+    background-color: $primary-color;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    background-color: $primary-color;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .login_signup-box {
