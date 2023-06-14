@@ -24,6 +24,9 @@ app.get('/login', (req, res) => {
   res.redirect('/');
 });
 
+app.post('/signup', userController.createUser, (req, res) => {
+  res.status(200).json(res.locals.newUser);
+});
 // still need a place to redirect after successful login
 app.post('/login', userController.verifyUser, (req, res) => {
   if (res.locals.result === true) {

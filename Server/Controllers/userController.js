@@ -37,4 +37,24 @@ userController.verifyUser = async (req, res, next) => {
   });
 };
 
+userController.createUser = async (req, res, next) => {
+  try{
+    const { username, password } = req.body;
+    const query = `INSERT INTO user_info (user_name, password) VALUES (${username}, ${hash}) RETURNING *;`
+    const data = await db.query(query, [username, password]);
+
+    const newUser = data.rows[0];
+    res.locals.newUser = newUser;
+    return next();
+  }
+  catch(err){
+    return next({
+      log: 'userController.createUser middleware ERROR',
+      message: {
+        err: err,
+      }
+    })
+  }
+};
+
 module.exports = userController;
