@@ -29,14 +29,6 @@ app.post('/signup', userController.createUser, cookieController.setUserCookie, (
   return res.status(200).json(userObj);
 });
 
-app.get('/login', (req, res) => {
-  // return res.status(200).sendFile(path.join(__dirname, '../index.html'));
-  res.redirect('/');
-});
-
-app.post('/signup', userController.createUser, (req, res) => {
-  res.status(200).json(res.locals.newUser);
-});
 // still need a place to redirect after successful login
 app.post('/login', userController.verifyUser, cookieController.setUserCookie, (req, res) => {
   if (res.locals.result === true) {
