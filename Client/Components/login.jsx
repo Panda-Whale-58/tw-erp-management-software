@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 
 function Login (props) {
@@ -6,6 +7,16 @@ function Login (props) {
   const [password, setPassword] = useState('');
   const {setLoggedIn} = props;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchData() {
+      // const cookie = await fetch('/')
+      // console.log('login element checking cookie', document.cookie)
+      const cookie = await fetch('/getcookie');
+      console.log(cookie);
+    }
+    fetchData();
+  }, [])
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -17,7 +28,7 @@ function Login (props) {
 
   const clickHandler = (event) => {
     event.preventDefault();
-    navigate('/feed');
+    
     fetch('/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -29,13 +40,22 @@ function Login (props) {
       }
     })
     .then(data => data.json())
-    .then(data => console.log('verification result', data))
+    .then(data => {
+      console.log('data from logging in', data);
+      if (data.err) {
+        //clears fields if error
+        setUsername('');
+        setPassword('');
+        //redirects to login
+        navigate('/login');
+      } else {
+        navigate('/feed');
+      }
+      
+      // console.log('verification result', data)
+    }
+      )
     .catch(err => console.log('error', err));
-
-    // // const name = document.getElementById('userName');
-    // // console.log(name.value);
-    // console.log(username);
-    // console.log(password);
   }
     return (
       <form onSubmit={clickHandler}>

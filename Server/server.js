@@ -2,9 +2,12 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const PORT = 3000;
-
+const cookieParser = require('cookie-parser');
+const cookieController = require('./Controllers/cookieController');
 const userController = require('./Controllers/userController');
 const dbRoute = require('./Routes/db');
+
+app.use(cookieParser());
 
 /* handle parsing request body */
 app.use(express.json());
@@ -19,6 +22,13 @@ app.get('/', (req, res) => {
   return res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
 
+//sign up route
+app.post('/signup', userController.createUser, cookieController.setUserCookie, (req, res) => {
+  const { userObj } = res.locals;
+  console.log('userObj: ', userObj);
+  return res.status(200).json(userObj);
+});
+
 app.get('/login', (req, res) => {
   // return res.status(200).sendFile(path.join(__dirname, '../index.html'));
   res.redirect('/');
@@ -28,12 +38,17 @@ app.post('/signup', userController.createUser, (req, res) => {
   res.status(200).json(res.locals.newUser);
 });
 // still need a place to redirect after successful login
-app.post('/login', userController.verifyUser, (req, res) => {
+app.post('/login', userController.verifyUser, cookieController.setUserCookie, (req, res) => {
   if (res.locals.result === true) {
     // return res.redirect('/');
     return res.send(res.locals.result);
   }
 });
+
+app.get('/getcookie', cookieController.verifyCookie, (req, res) => {
+  return res.status(200).send([]);
+})
+
 
 // handle get requests to the database
 app.use('/db', dbRoute);
