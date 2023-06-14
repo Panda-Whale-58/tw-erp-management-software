@@ -12,8 +12,8 @@ userController.verifyUser = async (req, res, next) => {
     // console.log('req.body', req.body);
     const { username, password } = req.body;
     
-    // console.log("Username: ", username);
-    // console.log("Password: ", password);
+    console.log("Username: ", username);
+    console.log("Password: ", password);
     
 
     //query will obtain hashed password of user
@@ -29,6 +29,7 @@ userController.verifyUser = async (req, res, next) => {
     const user = await db.query(query);
     console.log('user: ', user);
     //authenticated will return a boolean if they entered the correct password
+    console.log('user.rows[0].password', user.rows[0].password)
     const authenticated = await bcrypt.compare(password, user.rows[0].password);
     console.log('authenticated: ', authenticated);
 
@@ -56,8 +57,8 @@ userController.verifyUser = async (req, res, next) => {
 userController.createUser = async (req, res, next) => {
   try{
     const { username, password } = req.body;
-    // console.log('username', username);
-    // console.log('password', password);
+    console.log('username', username);
+    console.log('password', password);
     const hash = await bcrypt.hash(password, workFactor);
     const query = `INSERT INTO user_info (user_name, password) VALUES ('${username}', '${hash}') RETURNING *;`
     const user = await db.query(query);

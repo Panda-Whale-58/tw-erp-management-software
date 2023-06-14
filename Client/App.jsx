@@ -6,6 +6,7 @@ import { Route, Routes, useNavigate, Navigate, Link} from 'react-router-dom';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(true);
+  const [tempUser, setTempUser] = useState('Joe Smo')
   
   return (
     <>
