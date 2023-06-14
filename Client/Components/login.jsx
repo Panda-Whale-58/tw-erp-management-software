@@ -8,15 +8,15 @@ function Login (props) {
   const {setLoggedIn} = props;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchData() {
-      // const cookie = await fetch('/')
-      // console.log('login element checking cookie', document.cookie)
-      const cookie = await fetch('/getcookie');
-      console.log(cookie);
-    }
-    fetchData();
-  }, [])
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     // const cookie = await fetch('/')
+  //     // console.log('login element checking cookie', document.cookie)
+  //     const cookie = await fetch('/getcookie');
+  //     console.log(cookie);
+  //   }
+  //   fetchData();
+  // }, [])
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -42,8 +42,9 @@ function Login (props) {
     .then(data => data.json())
     .then(data => {
       console.log('data from logging in', data);
-      if (data.err) {
+      if (data.err || data.error) {
         //clears fields if error
+        // console.log('data err')
         setUsername('');
         setPassword('');
         //redirects to login
