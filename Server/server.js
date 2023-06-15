@@ -46,6 +46,10 @@ app.get('/getcookie', cookieController.verifyCookie, (req, res) => {
   return res.status(200).send(res.locals.usercookie);
 })
 
+// handles Github GET for OAuth
+app.get('https://github.com/login/oauth/authorize', (req, res) => {
+  return 
+})
 
 // handle get requests to the database
 app.use('/db', dbRoute);
