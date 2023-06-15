@@ -10,12 +10,14 @@ $officalgray: #D9D9D9;
 $officialdarkblue: #284B63;
 $officalwhite: #FFFFFF;
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
-    background-color:#3C6E71;
+    background-color: #3C6E71;
 
 }
+
 
 #root {
     height: 100%;
@@ -25,18 +27,31 @@ html, body {
     flex-direction: column;
     // justify-content: center;
     align-items: center;
-    
+
 }
 
-nav{
+nav {
     // display: flex;
     // justify-content: end;
+    // height: 10px;
+
     width: 100%;
     font-size: large;
-    background-color:#3C6E71;
+    background-color: #3C6E71;
     padding-right: 1.5em;
-    
+
 }
+
+.nav-container {
+    display: flex;
+    // justify-content: center;
+}
+
+nav h1 {
+    color: white;
+
+}
+
 // #drop-down-menu{
 
 // }
@@ -63,7 +78,7 @@ Select {
     padding: 10px 20px;
     // box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     border-radius: 5px;
-    
+
 }
 
 img {
@@ -93,7 +108,7 @@ img {
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
     padding: 2%;
 }
 
@@ -108,7 +123,9 @@ img {
 @font-face {
     font-family: abril;
     src: url('./Fonts/Abril_Fatface/AbrilFatface-Regular.ttf');
-};
+}
+
+;
 
 $primary-color: #3C6E71;
 $secondary-color: #284B63;
@@ -166,15 +183,15 @@ $white-grey: #FFFFFF;
 }
 
 .login_signup-btn {
-  width: 100%;
-  height: 40px;
-  background-color: $secondary-color;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: 600;
-  transition-duration: .3s;
-  transition-timing-function: ease;
+    width: 100%;
+    height: 40px;
+    background-color: $secondary-color;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    transition-duration: .3s;
+    transition-timing-function: ease;
 }
 
 .login_signup-btn:hover {
@@ -185,14 +202,14 @@ $white-grey: #FFFFFF;
 .newToTag {
     text-align: center;
     color: darken($light-grey, 50%);
-    border-bottom: 1px solid darken($light-grey, 50%); 
+    border-bottom: 1px solid darken($light-grey, 50%);
     line-height: 0.1em;
     margin: 35px 0 25px;
 }
 
-.newToTag span { 
-    background: $light-grey; 
-    padding:0 10px; 
+.newToTag span {
+    background: $light-grey;
+    padding: 0 10px;
 }
 
 .createAccount {

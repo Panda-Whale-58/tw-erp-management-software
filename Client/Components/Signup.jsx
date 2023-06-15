@@ -12,11 +12,11 @@ const Signup = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   }
-  
+
   const clickHandler = (event) => {
     console.log('clicked')
   };
-  
+
   const navigate = useNavigate();
 
   return (

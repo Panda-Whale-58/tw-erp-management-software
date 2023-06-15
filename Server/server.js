@@ -43,7 +43,7 @@ app.post('/login', userController.verifyUser, cookieController.setUserCookie, (r
 });
 
 app.get('/getcookie', cookieController.verifyCookie, (req, res) => {
-  return res.status(200).send([]);
+  return res.status(200).send(res.locals.usercookie);
 })
 
 
