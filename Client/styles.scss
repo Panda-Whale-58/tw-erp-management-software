@@ -423,7 +423,7 @@ $white-grey: #FFFFFF;
     padding: 12px;
     border-style: none;
     border-radius: 5px;
-    width: 280px;
+    width: 305px;
 }
 
 .sub-title {
@@ -437,7 +437,7 @@ $white-grey: #FFFFFF;
 }
 
 .login_signup-btn {
-    width: 100%;
+    width: 305px;
     height: 40px;
     background-color: $secondary-color;
     border: none;
@@ -468,4 +468,17 @@ $white-grey: #FFFFFF;
 
 .createAccount {
     width: 305px;
+}
+
+.OAuth-box {
+    display: flex;
+    flex-direction: row;
+}
+
+#GoogleOAuth {
+    margin-top: 12px;
+}
+
+#GithubOAuth {
+
 }

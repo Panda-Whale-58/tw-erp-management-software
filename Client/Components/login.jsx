@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import bgPattern from '../assets/patternBg.svg'
+import jwt_decode from 'jwt-decode';
 
 function Login(props) {
   const [username, setUsername] = useState('');
@@ -37,6 +38,42 @@ function Login(props) {
       }
     }, 0)
   }, [goToFeed])
+  
+//Oauth setup for Google
+  const handleCallbackResponse = (response) => {
+    console.log('Encoded JWT ID token' + response.credential);
+    const userObj = jwt_decode(response.credential)
+    console.log(userObj)
+    localStorage.setItem("username", userObj.name);
+
+    navigate('/feed');
+  };
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id: '123087640507-k06ltp0o18vgtlvirkhmuda5cmj28foo.apps.googleusercontent.com',
+      callback: handleCallbackResponse
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById('GoogleOAuth'),
+      { type: "icon", theme: "outline", size: "large", shape: "circle" }
+    );
+
+    google.accounts.id.prompt();
+  },[]);
+  
+  //Git Oauth setup
+  const handleGitAuth = () => {
+    const client_id = encodeURIComponent('80ebd350ec5d93ad08ca');
+    const redirect_uri = encodeURIComponent('http://localhost:8080');
+    const fetchUrl = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}`;
+    fetch('fetchUrl', {method: 'GET'})
+      .then(response => {
+        console.log(response);
+      });
+  }
+  
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -114,43 +151,16 @@ function Login(props) {
           <p className='newToTag'><span>New to TW-ERP?</span></p>
           <button className='signup_login-btn' onClick={signupHandler}>Create an account</button>
         </div>
-        <div className='OAuth-box'>
-          <button className='OAuth-btn'>Sign in with Github</button>
+        <div id='OAuth-box'>
+          <div id='GoogleOAuth'></div>
+          <button onClick={handleGitAuth} id='GithubOAuth'>Sign in with Github</button>
         </div>
       </div>
     </div>
   );
 }
-
 export default Login;
 
 
 // https://github.com/login/oauth/authorize?client_id=<client_id>&redirect_uri=http://localhost:3000/feed
 
-
-// const oAuthHandler = () => {
-//   fetch('/login', {
-//     method: 'GET',
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8'
-//     }
-//   })
-//   .then(data => data.json())
-//   .then(data => {
-//     console.log('data from logging in', data);
-//     if (data.err || data.error) {
-//       //clears fields if error
-//       // console.log('data err')
-//       setUsername('');
-//       setPassword('');
-//       //redirects to login
-//       navigate('/login');
-//     } else {
-//       navigate('/feed');
-//     }
-    
-//     // console.log('verification result', data)
-//   }
-//     )
-//   .catch(err => console.log('error', err));
-// };
