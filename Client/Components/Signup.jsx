@@ -41,6 +41,7 @@ const Signup = () => {
 
           navigate('/');
         } else {
+          localStorage.setItem("username", username);
           navigate('/feed');
         }
         
