@@ -4,7 +4,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { func } from 'prop-types';
 
 
 
@@ -13,10 +14,11 @@ const Feed = () => {
     const [product, setProduct] = useState('none');
     const [productInfo, setProductInfo] = useState({});
     const [user, setUser] = useState('');
+    const [showConfirmation, setShowConfirmation] = useState(false);
     // //example of useLocation
     // // const { state } = useLocation();
     // // const { id, color } = state; // Read values passed on state
-
+    const navigate = useNavigate();
     // console.log(state)
     // const location = useLocation();
     // console.log('location', location)
@@ -71,16 +73,34 @@ const Feed = () => {
 
     console.log('user in global', user);
 
-    // function signOut () {
-        
-    // }
+    function signOut () {
+        localStorage.setItem('username', 'signed out');
+        navigate('/');
+    }
+
+    function buyNow() {
+        setShowConfirmation(true)
+        // setTimeout(() => {
+        //     setShowConfirmation(false);
+        // }, 5000)
+    }
+
+    function cancelNotification() {
+        setShowConfirmation(false);
+    }
 
     return (
         <>
             <nav>
                 <div className='nav-container'>
-                    <h1>Twerp Bikes</h1>
-                    {user.username}
+                    <div className="nav-unit">
+                        <h1>Twerp Bikes</h1>
+                    </div>
+                    <div className="nav-unit">
+                    {/* <button onClick={signOut}>Sign Out</button> */}
+                    <a onClick={signOut}>Sign Out</a>
+                    <h3>{user.username}</h3>
+                    </div>
                 </div>
 
             </nav>
@@ -89,7 +109,7 @@ const Feed = () => {
                 {/* <div className="drop-down-container"> */}
                 <FormControl>
                     {/* <InputLabel id="demo-simple-select-label">Products</InputLabel> */}
-                    <Select onChange={handleChange} sx={{ m: 1, width: 350, mt: 3 }} id='drop-down-menu' value={product} style={{ marginTop: 100, backgroundColor: 'white' }}>
+                    <Select onChange={handleChange} sx={{ m: 1, width: 350, mt: 3 }} id='drop-down-menu' value={product} style={{ marginTop: 50, backgroundColor: 'white' }}>
                         <MenuItem value='none' disabled>Select a product</MenuItem>
                         <MenuItem value={'TW-ERP Bike'}>Bike</MenuItem>
                         <MenuItem value={'Bad Bike'}>Bad Bike</MenuItem>
@@ -116,16 +136,33 @@ const Feed = () => {
                                     <h3>Estimated delivery: {productInfo.shipTime} days</h3>
                                 </div>
                             </div>
+                            <button onClick={buyNow} className='buy-now-button'>Buy now!</button>
+                            {showConfirmation && (
+                                <div className="order-confirmation">
+                                    <p>You order has been received and will be delievered in {productInfo.shipTime} days!</p>
+                                    <button onClick={cancelNotification} className='cancel-notification'>X</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ) : (
-                    <div>
-                        Sold Out
+                    <>
+                    {/* <div> */}
+                        {/* Sold Out */}
+                        <div className="sold-out-container">
+                            <div className="main-sold-out-container">
+                                <img id='sold-out-image' src='https://thumbs.dreamstime.com/b/young-handsome-man-wearing-bike-helmet-sad-expression-covering-face-hands-crying-depression-concept-226263594.jpg'></img>
+                                <div className="sold-out-details">
+                                    <p>Our sincerest apologies, the <span className='italics'>{product}</span> is sold out. Perhaps you would be interested in our flagship <strong>TWERP Bike?</strong></p>
+                                </div>
+                            </div>
+                        </div>
                         {/* <img id='bike-image' src='https://cdn.shopify.com/s/files/1/0153/0623/products/MH-1029-02_1800x1800.jpg?v=1681762882'></img> */}
-                    </div>
+                    {/* </div> */}
+                    </>
                 )
             )}
-            <button></button>
+            
         </>
     )
 }

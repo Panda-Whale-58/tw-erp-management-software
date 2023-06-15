@@ -9,34 +9,46 @@ function Login(props) {
   const { setLoggedIn } = props;
   const navigate = useNavigate();
   const [goToFeed, setGoToFeed] = useState(false);
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState('')
+
+  // useEffect(() => {
+  //   // console.log('')
+  //   async function fetchData() {
+  //     // const cookie = await fetch('/')
+  //     // console.log('login element checking cookie', document.cookie)
+  //     //fix else statement in the server
+  //     const cookie = await fetch('/getcookie').then(ans => ans.json());
+  //     console.log('cookie inside of useeffect', cookie);
+  //     if (cookie) {
+  //       // setUser(cookie)
+  //       localStorage.setItem("username", cookie.username);
+  //       setGoToFeed(true)
+  //     }
+  //     // return cookie;
+  //   }
+  //   fetchData();
+  // }, [])
 
   useEffect(() => {
-    // console.log('')
-    async function fetchData() {
-      // const cookie = await fetch('/')
-      // console.log('login element checking cookie', document.cookie)
-      //fix else statement in the server
-      const cookie = await fetch('/getcookie').then(ans => ans.json());
-      console.log('cookie inside of useeffect', cookie);
-      if (cookie) {
-        // setUser(cookie)
-        localStorage.setItem("username", cookie.username);
-        setGoToFeed(true)
-      }
-      // return cookie;
+    const userFromLocal = localStorage.getItem("username");
+    console.log('userFromLocal', userFromLocal)
+    if (userFromLocal === null || userFromLocal === 'signed out') {
+      return;
+    } else {
+      navigate('/feed')
+      // setGoToFeed(true)
     }
-    fetchData();
+
   }, [])
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (goToFeed) {
-        // navigate('/feed')
-        return navigate('/feed', { state: { userdata: {username: user.username} } })
-      }
-    }, 0)
-  }, [goToFeed])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     if (goToFeed) {
+  //       navigate('/feed')
+  //       // return navigate('/feed', { state: { userdata: {username: user.username} } })
+  //     }
+  //   }, 1000)
+  // }, [])
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -68,8 +80,10 @@ function Login(props) {
           setUsername('');
           setPassword('');
           //redirects to login
+          
           navigate('/');
         } else {
+          localStorage.setItem("username", username);
           navigate('/feed');
         }
         // { state: { userdata: {username: username} } }

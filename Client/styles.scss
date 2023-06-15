@@ -58,7 +58,7 @@ Select {
     background-color: $officalgray;
     height: 100%;
     width: 100%;
-
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -106,6 +106,55 @@ img {
     text-align: center;
 }
 
+.sold-out-container {
+    background-color: $officalwhite;
+    height: 60%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    padding: 2%;
+}
+
+.main-sold-out-container {
+    background-color: $officalgray;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3%;
+    justify-content: center;
+    // justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    // box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.sold-out-details {
+    // border: 1px solid red;
+    // gap: 10px;
+    // height: 100px;
+    width: 60%;
+    // background-color: red;
+    display: flex;
+    flex-direction: column;
+    color: $lightblack;
+    min-width: 300px;
+    // background-color: #3C6E71;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+
+.italics {
+    font-style: italic;
+}
 
 // signup/login pages
 @font-face {
@@ -292,19 +341,61 @@ nav {
     width: 100%;
     font-size: large;
     background-color: #3C6E71;
-    padding-right: 1.5em;
+    // padding-right: 1.5em;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
 .nav-container {
     display: flex;
     // justify-content: center;
+    // border: 1px solid red;
+    width: 90%;
+    justify-content: space-between;
+    // justify-content: center;
 }
 
-nav h1 {
+.nav-unit {
+    // border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
+    // h1 {
+    //     color: white;
+    // }
+    // h3 {
+    //     color: white;
+    // }
+    // a {
+    //     color: white:
+    // }
+    // for username
+    h3 {
+        padding-left: 15px;
+        border-left: 2px solid rgb(40, 75, 77, .3);
+    }
+
+    a {
+        color: $light-grey;
+        // border: 1px solid green;
+        // margin-right: 5%;
+        padding-right: 15px;
+        &:hover {
+            cursor: pointer;
+            color: #ededed;
+        }
+    }
 
 }
+
+// nav h1 {
+//     color: white;
+
+// }
 
 // #drop-down-menu{
 
@@ -332,6 +423,8 @@ Select {
     padding: 10px 20px;
     // box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     border-radius: 5px;
+    // margin-bottom: 5px;
+    // overflow: hidden;
 
 }
 
@@ -345,11 +438,19 @@ img {
     // border: 1px solid red;
     gap: 10px;
     // height: 100px;
-    width: 75%;
+    // height: auto;
+    // width: 75%;
+    width: 60%;
+    margin-top: 5px;
+    padding-top: 10px;
+    min-width: 300px;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
     // background-color: red;
     display: flex;
     flex-direction: column;
     color: $lightblack;
+    border-radius: 5px;
     // background-color: #3C6E71;
     background-color: #FFFFFF;
 }
@@ -370,6 +471,50 @@ img {
     width: 100%;
     // border: 1px solid blue;
     text-align: center;
+}
+
+.buy-now-button {
+    width: 60%;
+    min-width: 300px;
+    background-color: #3C6E71;
+    color: #FFFFFF;
+    border-radius: 5px;
+    padding: 5px;
+    border: none;
+    font-size: 1.1rem;
+    &:hover {
+        background-color: darken(#3C6E71, 5);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+}
+
+.order-confirmation {
+    // height: 200px;
+    width: 160px;
+    padding: 5px;
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    bottom: -3%;
+    right: -10%;
+    border-radius: 10%;
+    border: 1px solid black;
+    background-color: lighten($primary-color, 15);
+    color: #FFFFFF;
+    // border: 1px solid white;
+    // display: flex;
+    // justify-content: s/pace-between;
+    // align-items: center;
+}
+
+.cancel-notification {
+    margin-left: 3px;
+    background-color: $light-grey;
+    border-radius: 1px;
+    border: none;
+    color: black;
+    padding: 1px;
 }
 
 
