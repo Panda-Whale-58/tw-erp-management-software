@@ -5,15 +5,15 @@
   "main": "./Client/index.js",
   "scripts": {
     "start": "node Server/server.js",
-    "build": "webpack --mode production",
-    "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --hot --color\" \"nodemon ./Server/server.js\""
+    "build": "webpack --mode development",
+    "dev": "NODE_ENV=development nodemon ./Server/server.js & NODE_ENV=development webpack server"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.13.4",
+    "@mui/material": "^5.13.5",
     "@mui/x-data-grid": "^6.6.0",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",

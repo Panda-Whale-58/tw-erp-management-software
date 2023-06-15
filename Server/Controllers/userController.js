@@ -7,14 +7,14 @@ const workFactor = 10;
 
 /* controller for verifying user login */
 userController.verifyUser = async (req, res, next) => {
-  try{
+  try {
     // deconstruct the req body to get user and password
     // console.log('req.body', req.body);
     const { username, password } = req.body;
-    
-    // console.log("Username: ", username);
-    // console.log("Password: ", password);
-    
+
+    console.log("Username: ", username);
+    console.log("Password: ", password);
+
 
     //query will obtain hashed password of user
     const query = `
@@ -29,20 +29,21 @@ userController.verifyUser = async (req, res, next) => {
     const user = await db.query(query);
     console.log('user: ', user);
     //authenticated will return a boolean if they entered the correct password
+    console.log('user.rows[0].password', user.rows[0].password)
     const authenticated = await bcrypt.compare(password, user.rows[0].password);
     console.log('authenticated: ', authenticated);
 
-    if (authenticated){
-      const userObj = {username : user.rows[0].user_name, _id : user.rows[0]._id}
+    if (authenticated) {
+      const userObj = { username: user.rows[0].user_name, _id: user.rows[0]._id }
       res.locals.userObj = userObj;
       res.locals.result = true;
       return next();
     }
-    else{
-      return res.redirect('/login');
+    else {
+      return res.redirect('/');
     }
   }
-  catch(error){
+  catch (error) {
     return next({
       log: "userController.verifyUser error",
       message: {
@@ -54,29 +55,29 @@ userController.verifyUser = async (req, res, next) => {
 
 //creates new user, sends back to the front end: username
 userController.createUser = async (req, res, next) => {
-  try{
+  try {
     const { username, password } = req.body;
-    // console.log('username', username);
-    // console.log('password', password);
+    console.log('username', username);
+    console.log('password', password);
     const hash = await bcrypt.hash(password, workFactor);
     const query = `INSERT INTO user_info (user_name, password) VALUES ('${username}', '${hash}') RETURNING *;`
     const user = await db.query(query);
     console.log('data from db query', user);
 
     //this object will contain user_id as well as username
-    const userObj = {username : user.rows[0].user_name, _id : user.rows[0]._id}
+    const userObj = { username: user.rows[0].user_name, _id: user.rows[0]._id }
     console.log('userObj', userObj);
     res.locals.userObj = userObj;
     return next();
   }
-  catch(error){
+  catch (error) {
     return next({
       log: 'ERROR in userController.createUser middleware',
       message: {
         error: error,
       },
     });
-  } 
+  }
 }
 
 module.exports = userController;

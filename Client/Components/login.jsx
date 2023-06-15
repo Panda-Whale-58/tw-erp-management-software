@@ -1,22 +1,41 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 
-function Login (props) {
+function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const {setLoggedIn} = props;
+  const { setLoggedIn } = props;
   const navigate = useNavigate();
+  const [goToFeed, setGoToFeed] = useState(false);
+  const [user, setUser] = useState({})
 
   useEffect(() => {
+    // console.log('')
     async function fetchData() {
       // const cookie = await fetch('/')
       // console.log('login element checking cookie', document.cookie)
-      const cookie = await fetch('/getcookie');
-      console.log(cookie);
+      //fix else statement in the server
+      const cookie = await fetch('/getcookie').then(ans => ans.json());
+      console.log('cookie inside of useeffect', cookie);
+      if (cookie) {
+        // setUser(cookie)
+        localStorage.setItem("username", cookie.username);
+        setGoToFeed(true)
+      }
+      // return cookie;
     }
     fetchData();
   }, [])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (goToFeed) {
+        // navigate('/feed')
+        return navigate('/feed', { state: { userdata: {username: user.username} } })
+      }
+    }, 0)
+  }, [goToFeed])
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -28,7 +47,7 @@ function Login (props) {
 
   const clickHandler = (event) => {
     event.preventDefault();
-    
+
     fetch('/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -39,43 +58,63 @@ function Login (props) {
         'Content-type': 'application/json; charset=UTF-8'
       }
     })
-    .then(data => data.json())
-    .then(data => {
-      console.log('data from logging in', data);
-      if (data.err) {
-        //clears fields if error
-        setUsername('');
-        setPassword('');
-        //redirects to login
-        navigate('/login');
-      } else {
-        navigate('/feed');
+      .then(data => data.json())
+      .then(data => {
+        console.log('data from logging in', data);
+        if (data.err || data.error) {
+          //clears fields if error
+          // console.log('data err')
+          setUsername('');
+          setPassword('');
+          //redirects to login
+          navigate('/');
+        } else {
+          navigate('/feed');
+        }
+        // { state: { userdata: {username: username} } }
+        // console.log('verification result', data)
       }
-      
-      // console.log('verification result', data)
-    }
       )
-    .catch(err => console.log('error', err));
+      .catch(err => console.log('error', err));
   }
-    return (
-      <form onSubmit={clickHandler}>
-        <div className="form-group">
-          <label htmlFor="name"></label>
-          Username:
-          <input id="userName"
-            type="text"
-            value={username}
-            onChange={handleUsernameChange}
-          />
-          Password:
-          <input id="password"
-            type="text"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <button type="submit">Submit</button>
+
+  const signupHandler = () => {
+    navigate('/signup');
+  }
+  return (
+    <div className='login_signup-background'>
+      <div className='login_signup-box'>
+        <form onSubmit={clickHandler} className='form_div'>
+          <h1 className='sub-title'> TW-ERP </h1>
+          {/* <h2 className='sub-title'>Login</h2> */}
+          <div className="login-form">
+            <label htmlFor="name"></label>
+            <input id="userName"
+              type="text"
+              placeholder='Username'
+              className='loginInputs'
+              value={username}
+              onChange={handleUsernameChange}
+            />
+            <br />
+            <input id="password"
+              type="text"
+              placeholder='Password'
+              className='loginInputs'
+              value={password}
+              onChange={handlePasswordChange}
+            />
+            <br />
+            <button type="submit" className='login_signup-btn'>Sign in</button>
+          </div>
+        </form>
+        <div className='createAccount'>
+          <p className='newToTag'><span>New to TW-ERP?</span></p>
+          <button className='login_signup-btn' onClick={signupHandler}>Join the TW-ERP family</button>
         </div>
-      </form>
-    );
+      </div>
+    </div>
+  );
 }
+
 export default Login;
