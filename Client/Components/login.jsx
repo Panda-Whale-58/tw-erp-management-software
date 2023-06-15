@@ -8,6 +8,7 @@ function Login(props) {
   const { setLoggedIn } = props;
   const navigate = useNavigate();
   const [goToFeed, setGoToFeed] = useState(false);
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     // console.log('')
@@ -18,7 +19,9 @@ function Login(props) {
       const cookie = await fetch('/getcookie').then(ans => ans.json());
       console.log('cookie inside of useeffect', cookie);
       if (cookie) {
-        return navigate('/feed', { state: { userdata: cookie } })
+        // setUser(cookie)
+        localStorage.setItem("username", cookie.username);
+        setGoToFeed(true)
       }
       // return cookie;
     }
@@ -28,9 +31,10 @@ function Login(props) {
   useEffect(() => {
     setTimeout(() => {
       if (goToFeed) {
-        return navigate('/feed', { state: { userdata: cookie } })
+        // navigate('/feed')
+        return navigate('/feed', { state: { userdata: {username: user.username} } })
       }
-    }, 1000)
+    }, 0)
   }, [goToFeed])
 
   const handleUsernameChange = (event) => {
@@ -67,7 +71,7 @@ function Login(props) {
         } else {
           navigate('/feed');
         }
-
+        // { state: { userdata: {username: username} } }
         // console.log('verification result', data)
       }
       )

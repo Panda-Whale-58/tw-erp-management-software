@@ -12,22 +12,25 @@ import { useLocation } from 'react-router-dom';
 const Feed = () => {
     const [product, setProduct] = useState('none');
     const [productInfo, setProductInfo] = useState({});
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState('');
     // //example of useLocation
     // // const { state } = useLocation();
     // // const { id, color } = state; // Read values passed on state
 
     // console.log(state)
-    const location = useLocation();
+    // const location = useLocation();
     // console.log('location', location)
     // const { id } = location.state;
     // // console.log(id)
 
     useEffect(() => {
-        console.log('useeffect in feed', location.state.userdata)
-        if (location.state.userdata) {
-            setUser(location.state.userdata);
-        }
+        // console.log('useeffect in feed', location.state.userdata)
+        // if (location.state.userdata) {
+        //     setUser(location.state.userdata);
+        // }
+        const usernameromstorage = localStorage.getItem('username');
+        console.log('usernameromstorage', usernameromstorage)
+        setUser({username: usernameromstorage})
     }, [])
 
 
@@ -73,7 +76,7 @@ const Feed = () => {
             <nav>
                 <div className='nav-container'>
                     <h1>Twerp Bikes</h1>
-                    {/* {username} */}
+                    {user.username}
                 </div>
 
             </nav>
