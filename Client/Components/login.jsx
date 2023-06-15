@@ -1,22 +1,37 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 
-function Login (props) {
+function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const {setLoggedIn} = props;
+  const { setLoggedIn } = props;
   const navigate = useNavigate();
+  const [goToFeed, setGoToFeed] = useState(false);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     // const cookie = await fetch('/')
-  //     // console.log('login element checking cookie', document.cookie)
-  //     const cookie = await fetch('/getcookie');
-  //     console.log(cookie);
-  //   }
-  //   fetchData();
-  // }, [])
+  useEffect(() => {
+    // console.log('')
+    async function fetchData() {
+      // const cookie = await fetch('/')
+      // console.log('login element checking cookie', document.cookie)
+      //fix else statement in the server
+      const cookie = await fetch('/getcookie').then(ans => ans.json());
+      console.log('cookie inside of useeffect', cookie);
+      if (cookie) {
+        return navigate('/feed', { state: { userdata: cookie } })
+      }
+      // return cookie;
+    }
+    fetchData();
+  }, [])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (goToFeed) {
+        return navigate('/feed', { state: { userdata: cookie } })
+      }
+    }, 1000)
+  }, [goToFeed])
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -28,7 +43,7 @@ function Login (props) {
 
   const clickHandler = (event) => {
     event.preventDefault();
-    
+
     fetch('/login', {
       method: 'POST',
       body: JSON.stringify({
@@ -39,24 +54,24 @@ function Login (props) {
         'Content-type': 'application/json; charset=UTF-8'
       }
     })
-    .then(data => data.json())
-    .then(data => {
-      console.log('data from logging in', data);
-      if (data.err || data.error) {
-        //clears fields if error
-        // console.log('data err')
-        setUsername('');
-        setPassword('');
-        //redirects to login
-        navigate('/login');
-      } else {
-        navigate('/feed');
+      .then(data => data.json())
+      .then(data => {
+        console.log('data from logging in', data);
+        if (data.err || data.error) {
+          //clears fields if error
+          // console.log('data err')
+          setUsername('');
+          setPassword('');
+          //redirects to login
+          navigate('/');
+        } else {
+          navigate('/feed');
+        }
+
+        // console.log('verification result', data)
       }
-      
-      // console.log('verification result', data)
-    }
       )
-    .catch(err => console.log('error', err));
+      .catch(err => console.log('error', err));
   }
 
   const signupHandler = () => {
