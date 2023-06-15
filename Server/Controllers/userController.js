@@ -12,10 +12,6 @@ userController.verifyUser = async (req, res, next) => {
     // console.log('req.body', req.body);
     const { username, password } = req.body;
 
-    console.log("Username: ", username);
-    console.log("Password: ", password);
-
-
     //query will obtain hashed password of user
     const query = `
       SELECT * 
@@ -62,7 +58,6 @@ userController.createUser = async (req, res, next) => {
     const hash = await bcrypt.hash(password, workFactor);
     const query = `INSERT INTO user_info (user_name, password) VALUES ('${username}', '${hash}') RETURNING *;`
     const user = await db.query(query);
-    console.log('data from db query', user);
 
     //this object will contain user_id as well as username
     const userObj = { username: user.rows[0].user_name, _id: user.rows[0]._id }

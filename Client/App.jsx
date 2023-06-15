@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Login from './Components/login.jsx';
+import Login from './Components/login.jsx';
 import Signup from './Components/Signup.jsx';
 import Feed from './Components/Feed.jsx';
 import { Route, Routes, useNavigate, Navigate, Link} from 'react-router-dom';

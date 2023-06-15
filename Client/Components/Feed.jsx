@@ -71,6 +71,10 @@ const Feed = () => {
 
     console.log('user in global', user);
 
+    function signOut () {
+        
+    }
+
     return (
         <>
             <nav>
@@ -93,6 +97,8 @@ const Feed = () => {
                 </FormControl>
                 {/* </div> */}
             </Box>
+
+            
 
             {Object.keys(productInfo).length != 0 && (
                 Object.hasOwn(productInfo, 'cost') ? (
@@ -119,6 +125,7 @@ const Feed = () => {
                     </div>
                 )
             )}
+            <button></button>
         </>
     )
 }
