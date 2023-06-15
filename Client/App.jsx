@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Login from './Components/login.jsx';
-import Login from './Components/login.jsx';
 import Signup from './Components/Signup.jsx';
 import Feed from './Components/Feed.jsx';
 import { Route, Routes, useNavigate, Navigate, Link} from 'react-router-dom';
@@ -21,12 +20,3 @@ const App = () => {
 };
 
 export default App;
-
-
-// previous group
-    // <div>
-    //   <p>WE GOT THIS!</p>
-      
-    //   loggedIn ? loginpage:querypage
-    //   {loggedIn && <Login setLoggedIn={setLoggedIn}/>}
-    // </div>

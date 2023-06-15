@@ -5,11 +5,7 @@
   "main": "./Client/index.js",
   "scripts": {
     "start": "node Server/server.js",
-<<<<<<< Updated upstream
-    "build": "webpack --mode development",
-=======
     "build": "webpack --mode production",
->>>>>>> Stashed changes
     "dev": "NODE_ENV=development nodemon ./Server/server.js & NODE_ENV=development webpack server"
   },
   "author": "",

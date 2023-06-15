@@ -71,9 +71,9 @@ const Feed = () => {
 
     console.log('user in global', user);
 
-    function signOut () {
+    // function signOut () {
         
-    }
+    // }
 
     return (
         <>

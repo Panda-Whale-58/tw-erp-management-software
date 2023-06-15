@@ -39,7 +39,7 @@ const Signup = () => {
           setUsername('');
           setPassword('');
 
-          navigate('/login');
+          navigate('/');
         } else {
           navigate('/feed');
         }
@@ -56,7 +56,7 @@ const Signup = () => {
   }
 
   const loginHandler = () => {
-    navigate('/login');
+    navigate('/');
   };
   
   const navigate = useNavigate();
