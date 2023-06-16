@@ -94,7 +94,7 @@ const Feed = () => {
             <nav>
                 <div className='nav-container'>
                     <div className="nav-unit">
-                        <h1>Twerp Bikes</h1>
+                        <h1>TW-ERP Bikes</h1>
                     </div>
                     <div className="nav-unit">
                     {/* <button onClick={signOut}>Sign Out</button> */}
@@ -109,16 +109,22 @@ const Feed = () => {
                 {/* <div className="drop-down-container"> */}
                 <FormControl>
                     {/* <InputLabel id="demo-simple-select-label">Products</InputLabel> */}
-                    <Select onChange={handleChange} sx={{ m: 1, width: 350, mt: 3 }} id='drop-down-menu' value={product} style={{ marginTop: 50, backgroundColor: 'white' }}>
+                    <Select onChange={handleChange} sx={{ m: 1, width: 350, mt: 3 }} id='drop-down-menu' value={product} style={{ marginTop: 35, backgroundColor: 'white' }}>
                         <MenuItem value='none' disabled>Select a product</MenuItem>
-                        <MenuItem value={'TW-ERP Bike'}>Bike</MenuItem>
+                        <MenuItem value={'TW-ERP Bike'}>TW-ERP Bike</MenuItem>
                         <MenuItem value={'Bad Bike'}>Bad Bike</MenuItem>
+                        <MenuItem value={'Rad Bike 2.0'}>Rad Bike 2.0</MenuItem>
+                        <MenuItem value={'Mountain Mayhem Bike'}>Mountain Mayhem Bike</MenuItem>
+                        <MenuItem value={'BMXcellence'}>BMXcellence</MenuItem>
+                        <MenuItem value={'Not Your Father\'s Nike'}>Not Your Father's Bike</MenuItem>
+                        <MenuItem value={'Tandem Terror'}>Tandem Terror</MenuItem>
+                        <MenuItem value={'Tricycle'}>Tricycle</MenuItem>
                     </Select>
                 </FormControl>
                 {/* </div> */}
             </Box>
 
-            
+
 
             {Object.keys(productInfo).length != 0 && (
                 Object.hasOwn(productInfo, 'cost') ? (
@@ -153,7 +159,7 @@ const Feed = () => {
                             <div className="main-sold-out-container">
                                 <img id='sold-out-image' src='https://thumbs.dreamstime.com/b/young-handsome-man-wearing-bike-helmet-sad-expression-covering-face-hands-crying-depression-concept-226263594.jpg'></img>
                                 <div className="sold-out-details">
-                                    <p>Our sincerest apologies, the <span className='italics'>{product}</span> is sold out. Perhaps you would be interested in our flagship <strong>TWERP Bike?</strong></p>
+                                    <p>Our sincerest apologies, the <span className='italics'>{product}</span> is sold out. Perhaps you would be interested in our flagship <strong>TW-ERP Bike?</strong></p>
                                 </div>
                             </div>
                         </div>

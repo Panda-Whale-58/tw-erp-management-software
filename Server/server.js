@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.static('build'));
 
+app.use(express.static('Client'));
+
 // statically serve everything in the build folder on the route '/build'
 app.use('/build', express.static(path.join(__dirname, '../build')));
 
@@ -47,9 +49,9 @@ app.get('/getcookie', cookieController.verifyCookie, (req, res) => {
 })
 
 // handles Github GET for OAuth
-app.get('https://github.com/login/oauth/authorize', (req, res) => {
-  return 
-})
+// app.get('https://github.com/login/oauth/authorize', (req, res) => {
+//   return 
+// })
 
 // handle get requests to the database
 app.use('/db', dbRoute);

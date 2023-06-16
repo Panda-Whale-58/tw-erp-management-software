@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import bgPattern from '../assets/patternBg.svg'
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -64,9 +65,10 @@ const Signup = () => {
 
   return (
     <div className='login_signup-background'>
+      <img src={bgPattern} className='bg-pattern' />
       <div className='login_signup-box'>
         <form onSubmit={signupHandler} className='form_div'>
-          <h1 className='sub-title'> TW-ERP </h1>
+          <h1 className='sub-title'>TW-ERP</h1>
           <div className="login-form">
             <label htmlFor="name"></label>
             <input id="userName"

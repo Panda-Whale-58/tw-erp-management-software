@@ -4,6 +4,7 @@ import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import bgPattern from '../assets/patternBg.svg'
 import jwt_decode from 'jwt-decode';
 
+
 function Login(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -49,14 +50,26 @@ function Login(props) {
   },[]);
   
   //Git Oauth setup
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParmas = new URLSearchParams(queryString);
+    const codeParam = urlParmas.get('code');
+    // console.log('codeParam', codeParam);
+  },[])
+
   const handleGitAuth = () => {
-    const client_id = encodeURIComponent('80ebd350ec5d93ad08ca');
-    const redirect_uri = encodeURIComponent('http://localhost:8080');
-    const fetchUrl = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}`;
-    fetch('fetchUrl', {method: 'GET'})
-      .then(response => {
-        console.log(response);
-      });
+     const client_id = encodeURIComponent('80ebd350ec5d93ad08ca');
+    window.location.assign('https://github.com/login/oauth/authorize?client_id=' + client_id);
+
+
+    // const client_id = encodeURIComponent('80ebd350ec5d93ad08ca');
+    // const redirect_uri = encodeURIComponent('http://localhost:8080');
+    // console.log(redirect_uri)
+    // const fetchUrl = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}`;
+    // fetch('fetchUrl', {method: 'GET'})
+    //   .then(response => {
+    //     console.log(response);
+    //   });
   }
 
 
@@ -105,13 +118,18 @@ function Login(props) {
 
   const signupHandler = () => {
     navigate('/signup');
+
+
+
+
+    
   }
   return (
     <div className='login_signup-background'>
       <img src={bgPattern} className='bg-pattern' />
       <div className='login_signup-box'>
         <form onSubmit={clickHandler} className='form_div'>
-          <h1 className='sub-title'> TW-ERP </h1>
+          <h1 className='sub-title'>TW-ERP</h1>
           {/* <h2 className='sub-title'>Login</h2> */}
           <div className="login-form">
             <label htmlFor="name"></label>
@@ -139,8 +157,16 @@ function Login(props) {
           <button className='signup_login-btn' onClick={signupHandler}>Create an account</button>
         </div>
         <div id='OAuth-box'>
+
           <div id='GoogleOAuth'></div>
-          <button onClick={handleGitAuth} id='GithubOAuth'>Sign in with Github</button>
+          {/* <button onClick={handleGitAuth} id='GithubOAuth'>Github Button</button> */}
+          {/* <img src="../assets/github-mark-white.png" ></img> */}
+          {/* <img id='github-logo' src='../assets/github-logo.png' alt="GitHub logo" onClick={handleGitAuth}></img>*/}
+          {/* <div id='github-logo'><i className="fa-brands fa-github"></i></div> */}
+          {/* <div className="github-circle-container"></div> */}
+          <div className="github-outer">
+          <div onClick={handleGitAuth} id='github-logo'><i className="bi bi-github"></i></div>
+          </div>
         </div>
       </div>
     </div>
